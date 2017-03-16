@@ -1,0 +1,11 @@
+html,body { margin:0; padding:0 }
+body { font:76% arial,sans-serif; text-align:center }
+div.header { background-color:#e6f2ff }
+div.header h1 { height:25%; line-height:80px; margin:0; padding-left:10px }
+div.container { width:100%; margin:0 auto }
+.content { padding:20px; width:80%; margin:0 auto; line-height:1.6 }
+.data { background-color: #e6f2ff; margin:0 auto; width:40%; padding:10px; text-align:left; border:1px dotted silver; overflow: auto }
+.data > div { padding:10px }
+.button { text-align:right }
+.amount { width:68px }
+.outcome { text-align:right; font-weight: bold }

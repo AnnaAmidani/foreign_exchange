@@ -1,0 +1,39 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <title>Currency Converter</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" href="js/jquery-ui-1.12.1.custom/jquery-ui.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="js/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+</head>
+<body>
+  <div class="container">
+   <div class="header"><h1>Currency Converter</h1></div>
+   <div class="content">
+     <form id="convert" action="/convert" method="post">
+       <div class="data">
+	     <div>Date: <input type="text" name="ref_date" id="ref_date" /></div>
+	     <div>Amount: <input type="number" name="base_amount" id="base_amount" class="amount" />
+	       <select id="base_currency">
+	         <option selected value="EUR">EUR</option>
+	         <option value="GBP">GBP</option>
+	       </select>
+	     </div>
+	     <div>Exchange to currency:
+	     	
+	       <select id="counter_currency">
+	         <option selected value="GBP">GBP</option>
+	         <option value="EUR">EUR</option>
+	       </select>
+	     </div>
+	     <div class="button"><input type="button" value="Convert" onclick="validateInline()"></div>
+	     <div class="outcome" id="outcome"><%= @converted_amount %> <%= @final_currency %></div>
+	   </div>
+     </form>
+   </div>
+  </div>
+</body>
+</html>
