@@ -1,7 +1,6 @@
 $( document ).ready(function() {
-  $("#ref_date").datepicker({ minDate: "-89D", maxDate: 0, defaultDate: 0, dateFormat: "dd-mm-yy" });
+  $("#ref_date").datepicker({ minDate: "-89D", maxDate: 0, defaultDate: 0, dateFormat: "yy-mm-dd" });
 });
- 
 function validateInline() {
   if($("#ref_date").val() === '') {
     $(".outcome").html("<span>Please select a reference date for the rate exchange.</span>");
@@ -12,4 +11,4 @@ function validateInline() {
     return false;
   }
   $("#convert").submit();
-}             
+}            
