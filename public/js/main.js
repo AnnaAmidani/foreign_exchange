@@ -27,6 +27,7 @@ function validateInline() {
 function getCurrenciesList() {
   var currencies = [
 	{val:'USD'},
+	{val:'EUR'},
 	{val:'JPY'},
 	{val:'BGN'},
 	{val:'CZK'},
