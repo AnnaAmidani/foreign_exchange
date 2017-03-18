@@ -7,7 +7,7 @@ end
 
 post '/convert' do
   currency_converter = CurrencyConverter.new()
-  @final_currency = params['counter_currency']
-  @converted_amount = currency_converter.convert_amount(params) 
+#  @converted_amount = amount.to_s + " " + params['counter_currency'].to_s
+  @converted_amount = currency_converter.convert_amount(params)
   erb :home
 end

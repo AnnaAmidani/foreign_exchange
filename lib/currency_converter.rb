@@ -5,16 +5,11 @@ class CurrencyConverter
   def get_exchange_rate(ref_date, base_currency, counter_currency)
     file = File.new("bin/exchange_rates.xml")
     doc = REXML::Document.new file
-    base = REXML::XPath.match(doc, '//Cube[@time="2017-03-13"]/Cube[@currency="GBP"]/@rate').at(0).value
-    counter = REXML::XPath.match(doc, '//Cube[@time="2017-03-13"]/Cube[@currency="USD"]/@rate').at(0).value    
-    base_rate = base.to_f
-    counter_rate = counter.to_f
-
-#   base_rate = puts REXML::XPath.match(doc, '//Cube[@time='"#{ref_date}"]/Cube[@currency="#{base_currency}"]/@rate')
- #  counter_rate = puts REXML::XPath.match(doc, '//Cube[@time="#{ref_date}"]/Cube[@currency="#{counter_currency}"]/@rate')
-    #if(base_rate.nil || counter_rate.nil)
-    #  return 0
-    exchange_rate = (counter_rate / base_rate).round(4)
+     base = REXML::XPath.match(doc, '//Cube[@time="' + ref_date + '"]/Cube[@currency="' + base_currency + '"]/@rate').at(0).value
+     counter = REXML::XPath.match(doc, '//Cube[@time="' + ref_date + '"]/Cube[@currency="' + counter_currency + '"]/@rate').at(0).value
+#     base = REXML::XPath.match(doc, '//Cube[@time="2017-03-13"]/Cube[@currency="USD"]/@rate').at(0).value
+#     counter = REXML::XPath.match(doc, '//Cube[@time="2017-03-13"]/Cube[@currency="GBP"]/@rate').at(0).value
+    exchange_rate = (counter.to_f / base.to_f).round(4)
     return exchange_rate  
   end
     

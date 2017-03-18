@@ -17,20 +17,13 @@
        <div class="data">
 	     <div>Date: <input type="text" name="ref_date" id="ref_date" /></div>
 	     <div>Amount: <input type="number" name="base_amount" id="base_amount" class="amount" />
-	       <select id="base_currency">
-	         <option selected value="EUR">EUR</option>
-	         <option value="GBP">GBP</option>
-	       </select>
+	       <select id="base_currency" name="base_currency"></select>
 	     </div>
-	     <div>Exchange to currency:
-	     	
-	       <select id="counter_currency">
-	         <option selected value="GBP">GBP</option>
-	         <option value="EUR">EUR</option>
-	       </select>
+	     <div>Exchange to currency:	     	
+	       <select id="counter_currency" name="counter_currency"></select>
 	     </div>
 	     <div class="button"><input type="button" value="Convert" onclick="validateInline()"></div>
-	     <div class="outcome" id="outcome"><%= @converted_amount %> <%= @final_currency %></div>
+	     <div class="outcome" id="outcome"><%= @converted_amount %></div>
 	   </div>
      </form>
    </div>
