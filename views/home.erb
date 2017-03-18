@@ -23,7 +23,7 @@
 	       <select id="counter_currency" name="counter_currency"></select>
 	     </div>
 	     <div class="button"><input type="button" value="Convert" onclick="validateInline()"></div>
-	     <div class="outcome" id="outcome"><%= @converted_amount %></div>
+	     <div class="outcome" id="outcome"><%= @converted_amount %> <%= @error %></div>
 	   </div>
      </form>
    </div>

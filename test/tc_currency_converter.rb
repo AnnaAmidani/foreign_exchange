@@ -3,7 +3,7 @@ require 'rexml/document'
 require "test/unit"
 class TestCurrencyConverter < Test::Unit::TestCase
   def test_get_exchange_rate
-   
+   returnreturn
     xml = %{
     <Cube>
     <Cube time="2017-03-14">
@@ -18,7 +18,6 @@ class TestCurrencyConverter < Test::Unit::TestCase
        
     arr = REXML::XPath.match(doc, '//Cube[@time="2017-03-13"]/Cube[@currency="USD"]/@rate')
     arr.each { |x| puts x.value }
-    #print el
    
 #    assert_equal(4, SimpleNumber.new(2).add(2) )
 #    assert_equal(6, SimpleNumber.new(2).multiply(3) )

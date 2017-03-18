@@ -4,6 +4,7 @@ class Constants
   EXCHANGE_RATES_FILE="exchange_rates.xml"
   REFERENCE_CURRENCY="EUR"
   #REFERENCE_CURRENCY="GBP"
+  ERROR_MISSING_DATA="Exchange rate not found for the given parameters."
   def show
     puts "#{TEST_RATES_URL} #{PROD_RATES_URL} #{EXCHANGE_RATES_FILE}"
   end
