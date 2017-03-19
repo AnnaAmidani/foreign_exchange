@@ -13,7 +13,7 @@ In order to run the application you'll need to configure your local environment 
  
 - Install sinatra --> gem install sinatra ( see http://www.sinatrarb.com )
  
-- Install rack test --> gem install rack-test (see http://www.sinatrarb.com/testing.html )
+- Install test unit --> gem install test-unit ( if ruby >= 2.2.0)
  
 - Go to the project root and run --> bundle install (This will install all the libraries the project needs)
  

@@ -1,25 +1,54 @@
-require_relative "../lib/currency_converter"
+require_relative '../lib/currency_converter'
 require 'rexml/document'
-require "test/unit"
+require_relative '../lib/util'
+require 'test/unit'
+
 class TestCurrencyConverter < Test::Unit::TestCase
-  def test_get_exchange_rate
-   returnreturn
-    xml = %{
-    <Cube>
-    <Cube time="2017-03-14">
-    <Cube currency="USD" rate="1.0631"/><Cube currency="JPY" rate="122.13"/><Cube currency="BGN" rate="1.9558"/><Cube currency="CZK" rate="27.021"/><Cube currency="DKK" rate="7.4338"/><Cube currency="GBP" rate="0.87563"/><Cube currency="HUF" rate="311.32"/><Cube currency="PLN" rate="4.3221"/><Cube currency="RON" rate="4.5435"/><Cube currency="SEK" rate="9.4968"/><Cube currency="CHF" rate="1.0726"/><Cube currency="NOK" rate="9.151"/><Cube currency="HRK" rate="7.426"/><Cube currency="RUB" rate="63.1241"/><Cube currency="TRY" rate="3.9776"/><Cube currency="AUD" rate="1.4073"/><Cube currency="BRL" rate="3.3591"/><Cube currency="CAD" rate="1.4338"/><Cube currency="CNY" rate="7.3511"/><Cube currency="HKD" rate="8.2598"/><Cube currency="IDR" rate="14213.91"/><Cube currency="ILS" rate="3.8947"/><Cube currency="INR" rate="69.917"/><Cube currency="KRW" rate="1222.47"/><Cube currency="MXN" rate="20.8468"/><Cube currency="MYR" rate="4.7303"/><Cube currency="NZD" rate="1.5389"/><Cube currency="PHP" rate="53.481"/><Cube currency="SGD" rate="1.5039"/><Cube currency="THB" rate="37.554"/><Cube currency="ZAR" rate="13.9904"/>
-    </Cube>
-    <Cube time="2017-03-13">
-    <Cube currency="USD" rate="1.0731"/><Cube currency="JPY" rate="122.13"/><Cube currency="BGN" rate="1.9558"/><Cube currency="CZK" rate="27.021"/><Cube currency="DKK" rate="7.4338"/><Cube currency="GBP" rate="0.87563"/><Cube currency="HUF" rate="311.32"/><Cube currency="PLN" rate="4.3221"/><Cube currency="RON" rate="4.5435"/><Cube currency="SEK" rate="9.4968"/><Cube currency="CHF" rate="1.0726"/><Cube currency="NOK" rate="9.151"/><Cube currency="HRK" rate="7.426"/><Cube currency="RUB" rate="63.1241"/><Cube currency="TRY" rate="3.9776"/><Cube currency="AUD" rate="1.4073"/><Cube currency="BRL" rate="3.3591"/><Cube currency="CAD" rate="1.4338"/><Cube currency="CNY" rate="7.3511"/><Cube currency="HKD" rate="8.2598"/><Cube currency="IDR" rate="14213.91"/><Cube currency="ILS" rate="3.8947"/><Cube currency="INR" rate="69.917"/><Cube currency="KRW" rate="1222.47"/><Cube currency="MXN" rate="20.8468"/><Cube currency="MYR" rate="4.7303"/><Cube currency="NZD" rate="1.5389"/><Cube currency="PHP" rate="53.481"/><Cube currency="SGD" rate="1.5039"/><Cube currency="THB" rate="37.554"/><Cube currency="ZAR" rate="13.9904"/>
-    </Cube>
-    </Cube>}
-   
-    doc = REXML::Document.new xml
-       
-    arr = REXML::XPath.match(doc, '//Cube[@time="2017-03-13"]/Cube[@currency="USD"]/@rate')
-    arr.each { |x| puts x.value }
-   
-#    assert_equal(4, SimpleNumber.new(2).add(2) )
-#    assert_equal(6, SimpleNumber.new(2).multiply(3) )
+  
+  def setup
+    @doc = File.new("exchange_rates_test.xml")
+    @currency_converter = CurrencyConverter.new(@doc)
   end
+
+  def test_converter_constructor_nothing_raised()
+    assert_nothing_raised(CurrencyConverter.new(@doc))
+  end
+
+  def test_converter_constructor_raise()
+    assert_raise(CurrencyConverter.new("file.xml"))
+  end
+
+  def test_same_amount()
+    assert_equal(122.20, Util.convert_amount(122.20, "2017-03-15", "GBP", "GBP"))
+  end
+ 
+  def test_exchange_rate()
+    puts @currency_converter.get_exchange_rate("2017-03-14", "GBP", "USD")   
+    puts @currency_converter.get_exchange_rate("2017-03-14", "JPY", "EUR") 
+    puts @currency_converter.get_exchange_rate("2017-03-13", "USD", "GBP")   
+    puts @currency_converter.get_exchange_rate("2017-03-13", "BGN", "HUF")   
+#    assert_equal(1.0631, @converter.get_exchange_rate("2016-10-14", "USD", "GBP"))
+#    assert_equal(0.9089, @converter.get_exchange_rate("2016-10-14", "USD", "EUR"))
+#    assert_equal(63.6245, @converter.get_exchange_rate("2016-10-14", "CHF", "RUB"))
+#    assert_equal(1.0104, @converter.get_exchange_rate("2016-10-14", "CHF", "USD"))
+  end
+  
+  def test_same_currency()
+    assert_equal(122.20, Util.convert_amount(122.20, "2017-03-13", "GBP", "GBP", @doc))
+  end
+
+  def test_convert_amount()
+    #assert_equal(122.20, Util.convert_amount(122.20, "2017-03-13", "GBP", "USD", @doc))
+    assert_equal(2.07, Util.convert_amount(56, "2017-03-14", "CZK", "EUR", @doc))
+  end
+
+  def test_base_currency()
+    assert_equal(1, @converter.get_exchange_rate("2017-03-15", "EUR", "EUR"))
+  end
+
+  def test_date_not_existing
+    assert_equal(0, @currency_converter.get_exchange_rate("2017-03-18", "GBP", "USD"))
+  end
+
 end
+
