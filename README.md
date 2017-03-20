@@ -19,11 +19,9 @@ In order to run the application you'll need to configure your local environment 
  
 - Run the shell script get_exchange_rates_daily.sh for getting the most updated file with the exchange data
  
-- Run --> ruby runner.rb
-[2017-03-15 23:07:53] INFO  WEBrick 1.3.1
-[2017-03-15 23:07:53] INFO  ruby 2.3.3 (2016-11-21)
-== Sinatra (v1.4.8) has taken the stage on 4567 for development with backup from WEBrick
-[2017-03-15 23:07:54] INFO  WEBrick::HTTPServer#start: pid=1140 port=4567
+- Run --> ruby runner.rb 
  
 The server has been started and you can access the web interface at http://localhost:4567
+
+- Run --> ruby test/tc_currency_converter.rb for running the test
  

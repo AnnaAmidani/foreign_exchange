@@ -13,7 +13,8 @@ class CurrencyConverter
     if ref_date_node.empty?
       return 0
     end
-    base = 1, counter = 1
+    base = 1
+    counter = 1
     if base_currency == Constants::REFERENCE_CURRENCY
       counter = REXML::XPath.match(ref_date_node, '//Cube[@currency="' + counter_currency + '"]/@rate').at(0).value
     elsif counter_currency == Constants::REFERENCE_CURRENCY

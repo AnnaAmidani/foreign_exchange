@@ -6,44 +6,38 @@ require 'test/unit'
 class TestCurrencyConverter < Test::Unit::TestCase
   
   def setup
-    @doc = File.new("exchange_rates_test.xml")
-    @currency_converter = CurrencyConverter.new(@doc)
+    @currency_converter = CurrencyConverter.new(getDoc())
   end
 
-  def test_converter_constructor_nothing_raised()
-    assert_nothing_raised(CurrencyConverter.new(@doc))
-  end
 
-  def test_converter_constructor_raise()
-    assert_raise(CurrencyConverter.new("file.xml"))
-  end
-
-  def test_same_amount()
-    assert_equal(122.20, Util.convert_amount(122.20, "2017-03-15", "GBP", "GBP"))
+  def getDoc()
+    doc = File.new("exchange_rates_test.xml")
+    return doc
   end
  
   def test_exchange_rate()
-    puts @currency_converter.get_exchange_rate("2017-03-14", "GBP", "USD")   
-    puts @currency_converter.get_exchange_rate("2017-03-14", "JPY", "EUR") 
-    puts @currency_converter.get_exchange_rate("2017-03-13", "USD", "GBP")   
-    puts @currency_converter.get_exchange_rate("2017-03-13", "BGN", "HUF")   
-#    assert_equal(1.0631, @converter.get_exchange_rate("2016-10-14", "USD", "GBP"))
-#    assert_equal(0.9089, @converter.get_exchange_rate("2016-10-14", "USD", "EUR"))
-#    assert_equal(63.6245, @converter.get_exchange_rate("2016-10-14", "CHF", "RUB"))
-#    assert_equal(1.0104, @converter.get_exchange_rate("2016-10-14", "CHF", "USD"))
+    assert_equal(1.236, @currency_converter.get_exchange_rate("2017-03-14", "GBP", "USD"))
+    assert_equal(0.0082, @currency_converter.get_exchange_rate("2017-03-14", "JPY", "EUR"))
+    assert_equal(0.8091, @currency_converter.get_exchange_rate("2017-03-13", "USD", "GBP"))
+    assert_equal(157.7615, @currency_converter.get_exchange_rate("2017-03-13", "BGN", "HUF"))
   end
   
-  def test_same_currency()
-    assert_equal(122.20, Util.convert_amount(122.20, "2017-03-13", "GBP", "GBP", @doc))
-  end
-
   def test_convert_amount()
-    #assert_equal(122.20, Util.convert_amount(122.20, "2017-03-13", "GBP", "USD", @doc))
-    assert_equal(2.07, Util.convert_amount(56, "2017-03-14", "CZK", "EUR", @doc))
+    assert_equal(150.79, Util.convert_amount("2017-03-15","122", "GBP", "USD", getDoc()))
+    assert_equal(10975.63, Util.convert_amount("2017-03-15","97", "USD", "JPY", getDoc()))
+    assert_equal(74.34, Util.convert_amount("2017-03-15","467.24", "CZK", "PLN", getDoc()))
   end
 
-  def test_base_currency()
-    assert_equal(1, @converter.get_exchange_rate("2017-03-15", "EUR", "EUR"))
+  def test_with_base_currency()
+    assert_equal(888.14, Util.convert_amount("2017-03-15","1238", "AUD", "EUR", getDoc()))
+    assert_equal(1238.07, Util.convert_amount("2017-03-15","888.14", "EUR", "AUD", getDoc()))
+  end
+
+
+  def test_same_amount()
+    assert_equal("122", Util.convert_amount("2017-03-15","122", "GBP", "GBP", getDoc()))
+    assert_equal("34.20", Util.convert_amount("2017-03-15","34.20", "EUR", "EUR", getDoc()))
+    assert_equal("1235.60", Util.convert_amount("2017-03-15","1235.60", "USD", "USD", getDoc()))
   end
 
   def test_date_not_existing
